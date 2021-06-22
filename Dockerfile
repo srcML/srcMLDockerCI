@@ -1,9 +1,8 @@
-FROM ubuntu:20.04
+FROM ubuntu:18.04
 LABEL org.srcml.email="srcmldev@gmail.com" \
       org.srcml.url="srcml.org" \
       org.srcml.distro="ubuntu" \
-      org.srcml.osversion="20.04" \
-      org.srcml.cmake="3.16.3" \
+      org.srcml.osversion="18.04" \
       org.srcml.boost="1.69.0"
 
 # Avoid prompts for timezone
