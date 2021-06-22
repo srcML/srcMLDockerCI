@@ -1,8 +1,8 @@
-FROM fedora:34
+FROM fedora:rawhide
 LABEL org.srcml.email="srcmldev@gmail.com" \
       org.srcml.url="srcml.org" \
       org.srcml.distro="fedora" \
-      org.srcml.osversion="34" \
+      org.srcml.osversion="rawhide" \
       org.srcml.boost="1.69.0"
 
 ENV PLATFORM=fedora:latest
