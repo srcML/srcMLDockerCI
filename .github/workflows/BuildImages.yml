@@ -25,6 +25,8 @@ jobs:
         with:
           push: true
           tags: srcml/ubuntu:20.04
+          platforms: linux/amd64,linux/arm64
+
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
