@@ -6,6 +6,10 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
+      - name: Create tagname
+        run: |
+          export IMAGENAME=$(echo ${GITHUB_REF##*/} | tr '_' ':')
+          echo "IMAGENAME=$IMAGENAME" >> $GITHUB_ENV
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -24,7 +28,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: srcml/ubuntu:20.04
+          tags: srcml/${{ env.IMAGENAME }}
           platforms: linux/amd64,linux/arm64
 
       -
