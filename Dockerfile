@@ -1,34 +1,40 @@
-FROM fedora:35
+FROM ubuntu:20.04
 LABEL org.srcml.email="srcmldev@gmail.com" \
       org.srcml.url="srcml.org" \
-      org.srcml.distro="fedora" \
-      org.srcml.osversion="35" \
+      org.srcml.distro="ubuntu" \
+      org.srcml.osversion="20.04" \
+      org.srcml.cmake="3.16.3" \
       org.srcml.boost="1.69.0"
 
-ENV PLATFORM=fedora:latest
+# Avoid prompts for timezone
+ENV TZ=US/Michigan
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-# Install dependencies
-RUN dnf install -y \
-    tar \
-    gcc-c++ \
+# Update and install dependencies
+RUN apt-get update && apt-get install --no-install-recommends -y \
+    curl \
+    zip \
+    g++ \
     make \
     cmake \
     ninja-build \
     antlr \
-    antlr-C++ \
-    libxml2-devel \
-    libxslt-devel \
-    libarchive-devel \
-    libcurl-devel \
-    openssl-devel \
-    bzip2 \
+    libantlr-dev \
+    libxml2-dev \
+    libxml2-utils \
+    libxslt1-dev \
+    libarchive-dev \
+    libssl-dev \
+    libcurl4-openssl-dev \
     cpio \
-    zip \
-    rpm-build \
-    rpmlint \
     man \
-    && dnf clean all
+    file \
+    dpkg-dev \
+    && rm -rf /var/lib/apt/lists/*
 
 # Download and install only needed boost files
 RUN curl -L http://www.sdml.cs.kent.edu/build/srcML-1.0.0-Boost.tar.gz | \
     tar xz -C /usr/local/include
+
+# Allow man pages to be installed
+RUN sed -i '/path-exclude=\/usr\/share\/man\/*/c\#path-exclude=\/usr\/share\/man\/*' /etc/dpkg/dpkg.cfg.d/excludes
