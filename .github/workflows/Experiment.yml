@@ -1,6 +1,9 @@
 name: Build Image Experiment
 
-on: push
+on:
+  push:
+    paths:
+      - 'Dockerfile'
 
 jobs:
   docker:
