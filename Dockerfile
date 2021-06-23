@@ -25,6 +25,7 @@ RUN dnf install -y 'dnf-command(config-manager)' && dnf config-manager --set-ena
     bzip2 \
     man \
     rpm-build \
+    && -y 'dnf-command(config-manager)' \
     && dnf clean all \
     && rm -rf /var/cache/yum
 
