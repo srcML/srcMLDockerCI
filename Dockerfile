@@ -15,7 +15,6 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     zip \
     g++ \
     make \
-    cmake \
     ninja-build \
     antlr \
     libantlr-dev \
@@ -30,6 +29,12 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     file \
     dpkg-dev \
     && rm -rf /var/lib/apt/lists/*
+
+# Build cmake from source for both amd64 and arm64 platforms
+RUN curl -L https://github.com/Kitware/CMake/releases/download/v3.20.5/cmake-3.20.5.tar.gz | tar xz && \
+    cd cmake-3.20.5 && ./bootstrap --generator=Ninja
+
+RUN cd cmake-3.20.5 && ninja && ninja install && cd .. && rm -fR cmake-3.20.5 && cmake --version
 
 # Download and install only needed boost files
 RUN curl -L http://www.sdml.cs.kent.edu/build/srcML-1.0.0-Boost.tar.gz | \
