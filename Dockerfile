@@ -1,8 +1,8 @@
-FROM ubuntu:16.04
+FROM ubuntu:14.04
 LABEL org.srcml.email="srcmldev@gmail.com" \
       org.srcml.url="srcml.org" \
       org.srcml.distro="ubuntu" \
-      org.srcml.osversion="16.04" \
+      org.srcml.osversion="14.04" \
       org.srcml.boost="1.69.0"
 
 # Avoid prompts for timezone
