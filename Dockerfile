@@ -1,15 +1,16 @@
-FROM fedora:35
+FROM centos:8
 LABEL org.srcml.email="srcmldev@gmail.com" \
       org.srcml.url="srcml.org" \
-      org.srcml.distro="fedora" \
-      org.srcml.osversion="35" \
-      org.srcml.boost="1.69.0"
+      org.srcml.distro="centos" \
+      org.srcml.osversion="8" \
+      org.srcml.boost="1.69.0" \
+      org.srcml.cmake="3.14.1"
 
-ENV PLATFORM=fedora:latest
-
-# Install dependencies
-RUN dnf install -y \
-    tar \
+# Update and install dependencies
+RUN dnf install -y 'dnf-command(config-manager)' && dnf config-manager --set-enabled powertools && dnf -y module enable javapackages-tools && dnf upgrade -y && dnf install -y \
+    which \
+    zip \
+    unzip \
     gcc-c++ \
     make \
     cmake \
@@ -19,15 +20,13 @@ RUN dnf install -y \
     libxml2-devel \
     libxslt-devel \
     libarchive-devel \
-    libcurl-devel \
     openssl-devel \
+    libcurl-devel \
     bzip2 \
-    cpio \
-    zip \
-    rpm-build \
-    rpmlint \
     man \
-    && dnf clean all
+    rpm-build \
+    && dnf clean all \
+    && rm -rf /var/cache/yum
 
 # Download and install only needed boost files
 RUN curl -L http://www.sdml.cs.kent.edu/build/srcML-1.0.0-Boost.tar.gz | \
