@@ -1,8 +1,8 @@
-FROM ubuntu:21.10
+FROM ubuntu:16.04
 LABEL org.srcml.email="srcmldev@gmail.com" \
       org.srcml.url="srcml.org" \
       org.srcml.distro="ubuntu" \
-      org.srcml.osversion="21.10" \
+      org.srcml.osversion="16.04" \
       org.srcml.boost="1.69.0"
 
 # Avoid prompts for timezone
@@ -15,7 +15,6 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     zip \
     g++ \
     make \
-    cmake \
     ninja-build \
     antlr \
     libantlr-dev \
@@ -30,6 +29,9 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     file \
     dpkg-dev \
     && rm -rf /var/lib/apt/lists/*
+
+# Download and install cmake
+RUN curl -L https://cmake.org/files/v3.20/cmake-3.20.4-linux-$(uname -m).tar.gz | tar xz --strip-components=1 -C /usr/local/
 
 # Download and install only needed boost files
 RUN curl -L http://www.sdml.cs.kent.edu/build/srcML-1.0.0-Boost.tar.gz | \
