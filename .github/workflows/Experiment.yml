@@ -1,0 +1,22 @@
+name: Build Image Experiment
+
+on:
+  push:
+    paths:
+      - 'Dockerfile'
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create tagname
+        run: |
+          echo ${GITHUB_REF##*/}
+          echo ${GITHUB_REF##*/} | tr '_' ':'
+          export IMAGENAME=$(echo ${GITHUB_REF##*/} | tr '_' ':')
+          echo $IMAGENAME
+          echo "IMAGENAME=$IMAGENAME" >> $GITHUB_ENV
+
+      - name: Create tagname
+        run: |
+          echo ${{ env.IMAGENAME }}
