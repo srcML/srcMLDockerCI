@@ -25,7 +25,9 @@ RUN yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.n
     man \
     rpm-build \
     && yum clean all \
-    && rm -rf /var/cache/yum
+    && rm -rf /var/cache/yum \
+    # ninja-build package in centos:7 does not install with the name 'ninja'
+    && mv /usr/bin/ninja-build /usr/bin/ninja
 
 # Download and install a newer binary version of cmake
 RUN curl -L https://cmake.org/files/v3.20/cmake-3.20.4-linux-$(uname -m).tar.gz | tar xz --strip-components=1 -C /usr/local/
