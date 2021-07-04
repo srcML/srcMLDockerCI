@@ -23,8 +23,7 @@ RUN zypper --non-interactive install --no-recommends \
     zip \
     bzip2 \
     man \
-    rpm-build \
-    && zypper clean -a
+    rpm-build
 
 # Download and install a newer binary version of cmake
 RUN curl -L https://cmake.org/files/v3.20/cmake-3.20.4-linux-$(uname -m).tar.gz | tar xz --strip-components=1 -C /usr/local/
