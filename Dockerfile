@@ -26,8 +26,7 @@ RUN dnf install -y \
     zip \
     rpm-build \
     rpmlint \
-    man \
-    && dnf clean all
+    man
 
 # Download and install only needed boost files
 RUN curl -L http://www.sdml.cs.kent.edu/build/srcML-1.0.0-Boost.tar.gz | \
